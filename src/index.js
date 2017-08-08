@@ -8,7 +8,8 @@ class PickerColumn extends Component {
     value: PropTypes.any.isRequired,
     itemHeight: PropTypes.number.isRequired,
     columnHeight: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    data: PropTypes.number
   };
 
   constructor(props) {
@@ -45,7 +46,7 @@ class PickerColumn extends Component {
   };
 
   onValueSelected = (newValue) => {
-    this.props.onChange(this.props.name, newValue);
+    this.props.onChange(this.props.name, newValue, this.props.data);
   };
 
   handleTouchStart = (event) => {
@@ -172,7 +173,8 @@ export default class Picker extends Component {
     valueGroups: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     itemHeight: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    data: PropTypes.number
   };
 
   static defaultProps = {
@@ -181,7 +183,7 @@ export default class Picker extends Component {
   };
 
   renderInner() {
-    const {optionGroups, valueGroups, itemHeight, height, onChange} = this.props;
+    const {optionGroups, valueGroups, itemHeight, height, onChange, data} = this.props;
     const highlightStyle = {
       height: itemHeight,
       marginTop: -(itemHeight / 2)
@@ -192,6 +194,7 @@ export default class Picker extends Component {
         <PickerColumn
           key={name}
           name={name}
+          data={data}
           options={optionGroups[name]}
           value={valueGroups[name]}
           itemHeight={itemHeight}
